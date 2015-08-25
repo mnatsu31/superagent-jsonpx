@@ -1,0 +1,26 @@
+{
+  "name": "superagent-jsonpx",
+  "version": "0.0.1",
+  "description": "superagent jsonp wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnatsu31/superagent-jsonpx.git"
+  },
+  "keywords": [
+    "superagent",
+    "jsonp"
+  ],
+  "author": "mnatsu31",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnatsu31/superagent-jsonpx/issues"
+  },
+  "homepage": "https://github.com/mnatsu31/superagent-jsonpx",
+  "devDependencies": {
+    "superagent": "^1.3.0"
+  }
+}
