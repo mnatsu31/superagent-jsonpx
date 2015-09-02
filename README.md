@@ -1,3 +1,8 @@
+# superagent-jsonpx
+
+[![npm version](https://badge.fury.io/js/superagent-jsonpx.svg)](http://badge.fury.io/js/superagent-jsonpx) 
+[![Coverage Status](https://coveralls.io/repos/mnatsu31/superagent-jsonpx/badge.svg?branch=master&service=github)](https://coveralls.io/github/mnatsu31/superagent-jsonpx?branch=master)
+
 ## Installation
 
 Install for node.js or browserify using npm:
