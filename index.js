@@ -37,7 +37,7 @@ function jsonp(options) {
   options = options || {};
 
   this.isJSONP = true;
-  this.timeout = options.timeout || 3000;
+  this.timeout = options.timeout || 1000;
   this.callbackKey = options.callbackKey || 'callback'
   this.callbackName = 'superagentCallback' + new Date().valueOf() + parseInt(Math.random() * 1000);
 

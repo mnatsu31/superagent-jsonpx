@@ -10,7 +10,7 @@ $ npm install --save-dev superagent-jsonpx
 
 ```javascript
 request.get(uri)
-  .jsonp({ timeout: 1000, callbackKey: 'cb' })
+  .jsonp({ timeout: 3000, callbackKey: 'cb' })
   .end(function (err, res) {
     // response handling
   });
@@ -20,7 +20,7 @@ request.get(uri)
 
 If there is no response after a timeout, it will determine that an error has occurred.
 
-* default: 3000ms
+* default: 1000ms
 
 **callbackKey**
 
