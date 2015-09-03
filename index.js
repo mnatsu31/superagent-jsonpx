@@ -1,54 +1,26 @@
 /* superagent-jsonpx */
 
-module.exports = function (superagent) {
-  if(typeof window === 'undefined' || !superagent.Request) return superagent;
+module.exports = function (options) {
+  options = options || {};
+  return function (request) {
+    if(typeof window === 'undefined' || !request) return request;
 
-  if (__xhrEnd === noop) {
-    var Request = superagent.Request;
-    __xhrEnd = Request.prototype.end;
-    __jsonpEnd = jsonpEnd;
+    request.timeout = options.timeout || 1000;
+    request.callbackKey = options.callbackKey || 'callback';
+    request.callbackName = 'superagentCallback' + new Date().valueOf() + parseInt(Math.random() * 1000);
+    request.mock = typeof options.mock !== 'undefined' ? options.mock : null;
+    request.end = end;
 
-    Request.prototype.jsonp = jsonp;
-    Request.prototype.end = end;
-  }
-
-  return superagent;
+    return request;
+  };
 };
 
 // Noop.
 function noop() {}
 
-var __xhrEnd = noop;
-var __jsonpEnd = noop;
-
-function clear(element) {
-  try {
-    element.parentNode.removeChild(iframe);
-  } catch (e) {};
-}
-
-function jsonp(options) {
-  options = options || {};
-
-  this.isJSONP = true;
-  this.timeout = options.timeout || 1000;
-  this.callbackKey = options.callbackKey || 'callback'
-  this.callbackName = 'superagentCallback' + new Date().valueOf() + parseInt(Math.random() * 1000);
-  this.mock = typeof options.mock !== 'undefined' ? options.mock : null;
-
-  return this;
-}
-
 function end(callback) {
   callback = callback || noop;
-  if (this.isJSONP) {
-    __jsonpEnd.call(this, callback);
-  } else {
-    __xhrEnd.call(this, callback);
-  }
-}
 
-function jsonpEnd(callback) {
   this._query.push(this.callbackKey + '=' + this.callbackName);
   var queryString = this._query.join('&');
   var separator = (this.url.indexOf('?') > -1) ? '&': '?';
@@ -70,7 +42,7 @@ function jsonpEnd(callback) {
   jsonp.src = url;
 
   // jsonp request
-  iframe.contentWindow.document.write('<body>' + cbs.outerHTML + jsonp.outerHTML + '</body>');
+  iframe.contentWindow.document.write(cbs.outerHTML + jsonp.outerHTML);
   iframe.contentWindow.close();
 
   // onload is manually called,
@@ -98,4 +70,10 @@ function onloadWrapper(superagentJSONP, callback) {
       clear(this);
     }
   };
+}
+
+function clear(element) {
+  try {
+    element.parentNode.removeChild(iframe);
+  } catch (e) {}
 }
